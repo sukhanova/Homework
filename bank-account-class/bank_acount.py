@@ -8,7 +8,10 @@ class BankAccount:
         self.account_balance += deposit_amount
 
     def account_withdraw(self, withdrawal_amount):
-        self.account_balance -= withdrawal_amount
+        if withdrawal_amount > self.account_balance:
+            print("Insufficient funds")
+        else:
+            self.account_balance -= withdrawal_amount
 
 # You can see how this class should be used below. Make sure you
 # run your code and test it out to make sure it works.
@@ -29,7 +32,7 @@ print(f"account_3 balance is {account_3.account_balance}")
 
 account_1.account_withdraw(10)
 account_2.account_withdraw(10)
-account_3.account_withdraw(50)
+account_3.account_withdraw(500)
 print(f"account_1 balance is {account_1.account_balance}")
 print(f"account_2 balance is {account_2.account_balance}")
 print(f"account_3 balance is {account_3.account_balance}")
