@@ -33,5 +33,13 @@ class Melon(object):
 
 # FIXME: Add Squash class definition here.
 class Squash(Melon):
-    super().prep()
-    robots.painterbot.paint(self)
+    """super() function invokes methods that were defined on a parent class."""
+    # super().prep()
+    # robots.painterbot.paint(self)
+
+    """Another way to solve: 
+    we should override the prep() method to include use of a painting robot:"""
+    def prep(self):
+        robots.cleanerbot.clean(self)
+        robots.stickerbot.apply_logo(self)
+        robots.painterbot.paint(self)
