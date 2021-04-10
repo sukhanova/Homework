@@ -11,8 +11,7 @@ class BankAccount:
         if withdrawal_amount > self.account_balance:
             # print("Insufficient funds")
             raise ValueError(f"Invalid transaction: not enough funds to withdraw ${withdrawal_amount}.")
-        else:
-            self.account_balance -= withdrawal_amount
+        self.account_balance -= withdrawal_amount
 
 # You can see how this class should be used below. Make sure you
 # run your code and test it out to make sure it works.
