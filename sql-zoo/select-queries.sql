@@ -5,8 +5,8 @@ SELECT name, continent, population FROM world;
 
 -- 2. Show the name for the countries that have a population of at least 200 million. 200 million is 200000000, there are eight zeros.
 SELECT name
-  FROM world
- WHERE population > 200000000;
+FROM world
+WHERE population > 200000000;
 
 -- 3.Give the name and the per capita GDP for those countries with a population of at least 200 million.
 SELECT name, gdp/population
@@ -56,8 +56,8 @@ WHERE gdp > 1000000000000;
 
 -- 11. Show the name and capital where the name and the capital have the same number of characters.
 SELECT name, capital
-  FROM world
- WHERE LEN(name) = LEN(capital);
+FROM world
+WHERE LEN(name) = LEN(capital);
 
 
 -- 12. Show the name and the capital where the first letters of each match. 
