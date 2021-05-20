@@ -58,7 +58,7 @@ ON casting.movieid = movie.id
 JOIN actor
 ON actor.id = casting.actorid
 WHERE actor.name='Harrison Ford'
-AND casting.ord !=1
+AND casting.ord !=1;
 
 -- 10.List the films together with the leading star for all 1962 films.
 SELECT movie.title, actor.name
@@ -68,4 +68,69 @@ ON casting.movieid = movie.id
 JOIN actor
 ON actor.id = casting.actorid
 WHERE movie.yr=1962
-AND casting.ord=1
+AND casting.ord=1;
+
+
+-- 11. Which were the busiest years for 'Rock Hudson', 
+-- show the year and the number of movies he made each year for any year 
+-- in which he made more than 2 movies.
+SELECT movie.yr, COUNT(*)
+FROM movie
+JOIN casting
+ON casting.movieid = movie.id
+JOIN actor
+ON actor.id = casting.actorid
+WHERE actor.name = 'Rock Hudson'
+GROUP BY movie.yr
+HAVING COUNT(movie.title) >= 2;
+
+-- 12. List the film title and the leading actor for all of the films 'Julie Andrews' played in.
+SELECT DISTINCT m.title, a.name
+FROM (SELECT movie.*
+      FROM movie
+      JOIN casting
+      ON casting.movieid = movie.id
+      JOIN actor
+      ON actor.id = casting.actorid
+      WHERE actor.name = 'Julie Andrews') AS m
+JOIN (SELECT actor.*, casting.movieid AS movieid
+      FROM actor
+      JOIN casting
+      ON casting.actorid = actor.id
+      WHERE casting.ord = 1) as a
+ON m.id = a.movieid
+ORDER BY m.title;
+
+-- 13. Obtain a list, in alphabetical order, of actors who've had at least 15 starring roles.
+SELECT actor.name
+FROM actor
+JOIN casting
+ON casting.actorid = actor.id
+WHERE casting.ord = 1
+GROUP BY actor.name
+HAVING COUNT(*) >= 15;
+
+-- 14. List the films released in the year 1978 ordered by the number of actors in the cast, then by title.
+SELECT movie.title, COUNT(*)
+FROM movie
+JOIN casting
+ON movie.id = casting.movieid
+WHERE movie.yr = 1978
+GROUP BY movie.title
+ORDER BY COUNT(*) DESC
+
+-- 15. List all the people who have worked with 'Art Garfunkel'.
+SELECT a.name
+  FROM (SELECT movie.*
+          FROM movie
+          JOIN casting
+            ON casting.movieid = movie.id
+          JOIN actor
+            ON actor.id = casting.actorid
+         WHERE actor.name = 'Art Garfunkel') AS m
+  JOIN (SELECT actor.*, casting.movieid
+          FROM actor
+          JOIN casting
+            ON casting.actorid = actor.id
+         WHERE actor.name != 'Art Garfunkel') as a
+    ON m.id = a.movieid;
